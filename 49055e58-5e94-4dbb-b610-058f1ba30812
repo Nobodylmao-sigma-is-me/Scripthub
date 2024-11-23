@@ -1,0 +1,103 @@
+local scripts = {
+    {url = "https://raw.githubusercontent.com/Nobodylmao-sigma-is-me/Scripthub/main/68b36ede-4dd8-4f58-a0f3-8616238537f0.lua", filename = "f3x.lua"},
+    {url = "https://raw.githubusercontent.com/Nobodylmao-sigma-is-me/Scripthub/refs/heads/main/e8615329-b13a-4ef7-b8b6-639242adc749.txt", filename = "Dex Explorer"},
+    {url = "https://raw.githubusercontent.com/Nobodylmao-sigma-is-me/Scripthub/refs/heads/main/4d19a3e8-64fb-45a4-ab1c-0c8d236209d5.lua", filename = "SimpleSpyV3.lua"},
+    {url = "https://raw.githubusercontent.com/Nobodylmao-sigma-is-me/Scripthub/refs/heads/main/1305d6d7-bf7d-4d26-bb9b-4fab9b9e4e6e", filename = "SuperTools.lua"},
+}
+
+local folderName = "hubscripts"
+if not isfolder(folderName) then
+    makefolder(folderName)
+end
+
+local function downloadAllScripts()
+    for _, script in ipairs(scripts) do
+        local fileName = folderName .. "/" .. script.filename
+        if not isfile(fileName) then
+            local success, scriptContent = pcall(function()
+                return game:HttpGet(script.url)
+            end)
+            if success then
+                pcall(function()
+                    writefile(fileName, scriptContent)
+                end)
+            end
+        end
+    end
+end
+
+downloadAllScripts()
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({
+    Name = "ScriptHub",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "Scriptshub",
+    IntroText = "ScriptHub",
+    Draggable = false 
+})
+
+local InventoryToolsTab = Window:MakeTab({
+    Name = "InventoryTools",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local Section = InventoryToolsTab:AddSection({
+    Name = "Tools"
+})
+
+InventoryToolsTab:AddButton({
+    Name = "F3X",
+    Callback = function()
+        local fileName = folderName .. "/f3x.lua"
+        local loadSuccess, loadError = pcall(function()
+            local scriptContent = readfile(fileName)
+            loadstring(scriptContent)()
+        end)
+    end    
+})
+
+InventoryToolsTab:AddButton({
+    Name = "SuperTools",
+    Callback = function()
+        local fileName = folderName .. "/SuperTools.lua"
+        local loadSuccess, loadError = pcall(function()
+            local scriptContent = readfile(fileName)
+            loadstring(scriptContent)()
+        end)
+    end    
+})
+
+local ToolsTab = Window:MakeTab({
+    Name = "Tools",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local ToolsSection = ToolsTab:AddSection({
+    Name = "Exploit Tools"
+})
+
+ToolsTab:AddButton({
+    Name = "Dex Explorer",
+    Callback = function()
+        local fileName = folderName .. "/Dex Explorer"
+        local loadSuccess, loadError = pcall(function()
+            local scriptContent = readfile(fileName)
+            loadstring(scriptContent)()
+        end)
+    end    
+})
+
+ToolsTab:AddButton({
+    Name = "Simple SpyV3",
+    Callback = function()
+        local fileName = folderName .. "/Simple SpyV3.lua"
+        local loadSuccess, loadError = pcall(function()
+            local scriptContent = readfile(fileName)
+            loadstring(scriptContent)()
+        end)
+    end    
+})
